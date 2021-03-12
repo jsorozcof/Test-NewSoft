@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ConfeccionesCondor.Models.EmpleadoModel>
+
+<div class="col-md-20 offset-md-20" style="width:100%">
+
+    <h1 class="text-center">Registro servicio de restaurante</h1>
+
+
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoDocumentoId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroDocumento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombres)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellidos)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Area.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaNacimiento)
+                </th>
+                <th>
+                    <a onclick="showInPopup('@Url.Action("AddOrEdit","Empleado",null,Context.Request.Scheme)','Empleado Nuevo')" class="btn btn-success text-white"><i class="fas fa-random"></i> Empleado Nuevo</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoDocumentoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroDocumento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombres)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellidos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Area.Nombre)
+                </td>
+                <td>
+                    @Html.ValueFor(modelItem => item.FechaNacimiento, "{0:dd/MM/yyyy}")
+                  
+                </td>
+                <td>
+                    <div>
+                        <a onclick="showInPopup('@Url.Action("AddOrEdit","Empleado",new {id=item.EmpleadoId},Context.Request.Scheme)','Actualizar Empleado')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Actualizar</a>
+                        <form asp-action="Delete" asp-route-id="@item.EmpleadoId" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                            <input type="hidden" asp-for="@item.EmpleadoId" />
+                            <input type="submit" value="Eliminar" class="btn btn-danger" />
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
